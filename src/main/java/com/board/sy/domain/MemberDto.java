@@ -3,19 +3,24 @@ package com.board.sy.domain;
 public class MemberDto {
     private String mid;
     private String pwd;
-    private String name;
+    private String mname;
     private String email;
-    private String birth;
+    private String birth_yy;
+    private String birth_mm;
+    private String birth_dd;
     private String mauth;
     private String reg_date;
 
     public MemberDto(){}
-    public MemberDto(String mid, String pwd, String name, String email, String birth, String mauth, String reg_date) {
+
+    public MemberDto(String mid, String pwd, String mname, String email, String birth_yy, String birth_mm, String birth_dd, String mauth, String reg_date) {
         this.mid = mid;
         this.pwd = pwd;
-        this.name = name;
+        this.mname = mname;
         this.email = email;
-        this.birth = birth;
+        this.birth_yy = birth_yy;
+        this.birth_mm = birth_mm;
+        this.birth_dd = birth_dd;
         this.mauth = mauth;
         this.reg_date = reg_date;
     }
@@ -36,12 +41,12 @@ public class MemberDto {
         this.pwd = pwd;
     }
 
-    public String getName() {
-        return name;
+    public String getMname() {
+        return mname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMname(String mname) {
+        this.mname = mname;
     }
 
     public String getEmail() {
@@ -52,12 +57,28 @@ public class MemberDto {
         this.email = email;
     }
 
-    public String getBirth() {
-        return birth;
+    public String getBirth_yy() {
+        return birth_yy;
     }
 
-    public void setBirth(String birth) {
-        this.birth = birth;
+    public void setBirth_yy(String birth_yy) {
+        this.birth_yy = birth_yy;
+    }
+
+    public String getBirth_mm() {
+        return birth_mm;
+    }
+
+    public void setBirth_mm(String birth_mm) {
+        this.birth_mm = birth_mm;
+    }
+
+    public String getBirth_dd() {
+        return birth_dd;
+    }
+
+    public void setBirth_dd(String birth_dd) {
+        this.birth_dd = birth_dd;
     }
 
     public String getMauth() {

@@ -37,7 +37,7 @@
       margin-bottom: 10px;
     }
     button {
-      background-color: rgb(89,117,196);
+      background-color: #30426E;
       color : white;
       width:300px;
       height:50px;
@@ -66,7 +66,7 @@
     <li><a href="<c:url value='/'/>">Home</a></li>
     <li><a href="<c:url value='/board/list'/>">Board</a></li>
     <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-    <li><a href="<c:url value='/register/add'/>">Sign in</a></li>
+    <li><a href="<c:url value='/register'/>">Sign in</a></li>
     <li><a href=""><i class="fa fa-search"></i></a></li>
   </ul>
 </div>

@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 
 import com.board.sy.dao.MemberDao;
 import com.board.sy.domain.MemberDto;
+import com.board.sy.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/login")
 public class LoginController {
     @Autowired
-    MemberDao memberDao;
+    MemberService memberService;
 
     @GetMapping("/login")
     public String loginForm(){
@@ -61,7 +62,7 @@ public class LoginController {
     private boolean loginCheck(String mid, String pwd){
         MemberDto member = null;
         try{
-            member = memberDao.selectMember(mid);
+            member = memberService.getUser(mid);
         }catch(Exception e){
             e.printStackTrace();
             return false;

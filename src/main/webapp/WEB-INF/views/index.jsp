@@ -3,7 +3,9 @@
 <%@ page session="false"%>
 <c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
+<c:set var="signLink" value="${loginId=='' ? '/register' : '/mypage'}"/>
+<c:set var="sign" value="${loginId=='' ? 'Sign in' : 'MyPage'}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,14 +21,19 @@
         <li><a href="<c:url value='/'/>">Home</a></li>
         <li><a href="<c:url value='/board/list'/>">Board</a></li>
         <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a href="<c:url value='/register/add'/>">Sign in</a></li>
+        <li><a href="<c:url value='${signLink}'/>">${sign}</a></li>
         <li><a href=""><i class="fa fa-search"></i></a></li>
     </ul>
 </div>
-<div style="text-align:center">
-    <h1>This is HOME</h1>
-    <h1>This is HOME</h1>
-    <h1>This is HOME</h1>
+<div style="text-align:center; margin-top:50px; font-size:24px;">
+    <c:choose>
+        <c:when test="${loginId != '' }">
+            <div> <c:out value="${loginId}"/>님, 안녕하세요 </div>
+        </c:when>
+        <c:otherwise>
+            <div>로그인 후, 이용해주세요</div>
+        </c:otherwise>
+    </c:choose>
 </div>
 </body>
 </html>

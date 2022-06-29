@@ -2,6 +2,7 @@ package com.board.sy.controller;
 
 import com.board.sy.dao.MemberDao;
 import com.board.sy.domain.MemberDto;
+import com.board.sy.service.MemberService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class LoginControllerTest {
     @Autowired
-    MemberDao memberDao;
+    MemberService memberService;
 
     @Test
     public void loginCheck() {
@@ -23,16 +24,16 @@ public class LoginControllerTest {
         MemberDto member = null;
 
         try{
-            member = memberDao.selectMember(mid);
+            member = memberService.getUser(mid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
         assertTrue(member.getMid().equals("aaaa"));
         assertTrue(member.getPwd().equals("1"));
-        assertTrue(member.getName().equals("홍길동"));
+        assertTrue(member.getMname().equals("홍길동"));
         assertTrue(member.getEmail().equals("aa@naver.com"));
-        assertTrue(member.getBirth().equals("2022-01-01"));
-        assertTrue(member.getBirth().equals("2022-06-28"));
+//        assertTrue(member.getBirth().equals("2022-01-01"));
+        assertTrue(member.getReg_date().equals("2022-06-28"));
     }
 }

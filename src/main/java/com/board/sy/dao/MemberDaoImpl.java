@@ -16,4 +16,11 @@ public class MemberDaoImpl implements MemberDao {
     public MemberDto selectMember(String mid) throws Exception{
         return session.selectOne(namespace + "select", mid);
     }
+
+    @Override
+    public int insertMember(MemberDto memberDto) throws Exception{
+        System.out.println(memberDto.getEmail());
+        return session.insert(namespace + "insert", memberDto);
+    }
 }
+
