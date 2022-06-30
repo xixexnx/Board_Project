@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.board.sy.dao.PostMapper">
+    <select id="select" resultType="PostDto">
+        SELECT pno, title, content, writer, view_cnt, comment_cnt, up_date FROM post
+        WHERE pno = #{pno}
+    </select>
+</mapper>
