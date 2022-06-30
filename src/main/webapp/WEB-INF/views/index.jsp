@@ -19,7 +19,7 @@
     <ul>
         <li id="logo">Board</li>
         <li><a href="<c:url value='/'/>">Home</a></li>
-        <li><a href="<c:url value='/board'/>">Board</a></li>
+        <li><a href="<c:url value='/board/list'/>">Board</a></li>
         <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
         <li><a href="<c:url value='${signLink}'/>">${sign}</a></li>
         <li><a href=""><i class="fa fa-search"></i></a></li>
