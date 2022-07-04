@@ -19,8 +19,12 @@ public class MemberDaoImpl implements MemberDao {
 
     @Override
     public int insertMember(MemberDto memberDto) throws Exception{
-        System.out.println(memberDto.getEmail());
         return session.insert(namespace + "insert", memberDto);
+    }
+
+    @Override
+    public int deleteAll() throws Exception{
+        return session.delete(namespace+"deleteAll");
     }
 }
 

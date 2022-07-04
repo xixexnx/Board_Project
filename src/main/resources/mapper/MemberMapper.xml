@@ -12,4 +12,8 @@
         INSERT INTO member (mid, pwd, mname, email, birth, mauth, reg_date)
         VALUES (#{mid}, #{pwd}, #{mname}, #{email}, concat(#{birth_yy}, '-', #{birth_mm}, '-', #{birth_dd}, '-'), 'a0001', now())
     </insert>
+
+    <delete id="deleteAll">
+        DELETE FROM member
+    </delete>
 </mapper>

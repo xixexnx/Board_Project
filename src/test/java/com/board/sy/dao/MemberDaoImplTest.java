@@ -15,30 +15,30 @@ import static org.junit.Assert.*;
 public class MemberDaoImplTest {
     @Autowired MemberDao memberDao;
 
-    @Test
-    public void count() throws Exception{
-        memberDao.deleteAllMember();
-        assertTrue(memberDao.countMember()==0);
+//    @Test
+//    public void count() throws Exception{
+////        memberDao.deleteAllMember();
+////        assertTrue(memberDao.countMember()==0);
+////
+////        MemberDto dto = new MemberDto("hong", "1", "홍길동", "hong@hong.com", "1998", "01", "13");
+////        memberDao.insertMember(dto);
+////        assertTrue(memberDao.countMember()==1);
+//    }
+//    @Test
+//    public void deleteAll() throws Exception{
+////        memberDao.deleteAllMember();
+////        assertTrue(memberDao.countMember() == 0);
+//    }
 
-        MemberDto dto = new MemberDto("hong", "1", "홍길동", "hong@hong.com", "1998", "01", "13");
-        memberDao.insertMember(dto);
-        assertTrue(memberDao.countMember()==1);
-    }
-    @Test
-    public void deleteAll() throws Exception{
-        memberDao.deleteAllMember();
-        assertTrue(memberDao.countMember() == 0);
-    }
-
-    @Test
-    public void insert() throws Exception{
-        memberDao.deleteAllMember();
-        assertTrue(memberDao.countMember() == 0);
-
-        MemberDto dto = new MemberDto("hong", "1", "홍길동", "hong@hong.com", "1998", "01", "13");
-        assertTrue(memberDao.insertMember(dto)==1);
-        assertTrue(memberDao.countMember() == 1);
-        assertEquals(memberDao.selectMember("hong").getPwd(),"1");
-    }
+//    @Test
+//    public void insert() throws Exception{
+////        memberDao.deleteAllMember();
+////        assertTrue(memberDao.countMember() == 0);
+////
+////        MemberDto dto = new MemberDto("hong", "1", "홍길동", "hong@hong.com", "1998", "01", "13");
+////        assertTrue(memberDao.insertMember(dto)==1);
+////        assertTrue(memberDao.countMember() == 1);
+////        assertEquals(memberDao.selectMember("hong").getPwd(),"1");
+//    }
 
 }

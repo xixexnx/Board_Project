@@ -7,5 +7,7 @@
 		<!-- 별명(별칭 설정) 패키지 이름을 줄이기 위한 방법. -->
 		<!-- alias(별칭)은 대소문자를 구별하지 않음 / type은 대소문자 구별함 -->
 		<typeAlias alias="MemberDto" type="com.board.sy.domain.MemberDto"/>
+		<typeAlias alias="BoardDto" type="com.board.sy.domain.BoardDto"/>
+		<typeAlias alias="PostDto" type="com.board.sy.domain.PostDto"/>
 	</typeAliases>
 </configuration>

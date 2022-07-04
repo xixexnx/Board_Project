@@ -12,7 +12,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>board</title>
+  <title>board - ${loginId}</title>
   <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
@@ -38,7 +38,7 @@
       margin: 0 auto;
       /* border: 1px solid black; */
     }
-    #board-name{
+    #board-top{
       width: 60%;
       margin: 0 auto;
       text-align: left;
@@ -230,8 +230,11 @@
 </div>
 
 <div style="text-align:center; clear: both">
-  <div id="board-name">
-    <a>전체 게시판</a>
+  <div id="board-top">
+    <span id="board-name"><a>전체 게시판</a></span>
+    <div style="float:right">
+      <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/post"/>'"><i class="fa fa-pencil"></i> 글쓰기</button>
+    </div>
   </div>
   <div class="board-container">
 
@@ -289,7 +292,7 @@
             let reg_day = new Date(data.list[i].up_date);
             str += '<tr>';
             str += '<td class="no">' + data.list[i].pno.slice(1, 5) + '</td>';
-            str += '<td class="title"><a href="/board&bno=' + data.list[i].bno + '">' + data.list[i].title + '</a></td>';
+            str += '<td class="title"><a href="<c:url value='/board/post/'/>' + data.list[i].pno + '">' + data.list[i].title + '</a></td>';
             str += '<td class="writer" style="text-align: center">' + data.list[i].writer + '</td>';
             if (reg_day >= now.getDate()) {
               str += '<td class="regdate">' + reg_day.getHours() + '시 ' + reg_day.getMinutes() + '분' + '</td>';

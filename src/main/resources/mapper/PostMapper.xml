@@ -4,7 +4,37 @@
 
 <mapper namespace="com.board.sy.dao.PostMapper">
     <select id="select" resultType="PostDto">
-        SELECT pno, title, content, writer, view_cnt, comment_cnt, up_date FROM post
+        SELECT pno, title, content, writer, view_cnt, comment_cnt, up_date
+        FROM post
         WHERE pno = #{pno}
+        ORDER BY pno asc
     </select>
+
+    <select id="selectBoardName" resultType="BoardDto">
+        SELECT t1.title
+        FROM board t1, post t2
+        WHERE t1.bno = t2.bno
+        AND pno = #{pno}
+    </select>
+
+    <insert id="insertPost">
+        INSERT INTO post (pno, bno, title, content, writer, view_cnt, comment_cnt, reg_date, up_date)
+        VALUES (#{pno}, #{bno}, #{title}, #{content}, #{writer}, 0, 0, now(), now())
+    </insert>
+
+    <select id="createPno" resultType="String">
+        SELECT CONCAT('P', LPAD(CAST(SUBSTR(MAX(PNO),2,5) AS UNSIGNED) +1,4,0))
+        FROM POST
+    </select>
+
+    <update id="updatePost">
+        UPDATE post
+        SET title = #{title}, content = #{content}, up_date = now()
+        WHERE pno = #{pno}
+    </update>
+
+    <delete id="deletePost">
+        DELETE FROM post
+        WHERE pno = #{pno}
+    </delete>
 </mapper>

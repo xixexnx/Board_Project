@@ -4,7 +4,7 @@
 
 <mapper namespace="com.board.sy.dao.BoardMapper">
     <select id="selectAll" resultType="BoardDto">
-        SELECT BNO, TITLE FROM board
+        SELECT bno, title FROM board
     </select>
 
     <select id="select" resultType="BoardDto">
@@ -15,5 +15,6 @@
     <select id="selectPost" resultType="PostDto">
         SELECT pno, title, content, writer, view_cnt, comment_cnt, up_date FROM post
         WHERE bno LIKE concat('%', #{bno})
+        ORDER BY pno desc;
     </select>
 </mapper>

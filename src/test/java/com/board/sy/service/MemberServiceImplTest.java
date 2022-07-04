@@ -35,15 +35,15 @@ public class MemberServiceImplTest {
         assertTrue(member.getReg_date().equals("2022-06-30"));
     }
 
-    @Test
-    public void joinUserTest(){
-        MemberDto member = null;
-        try {
-            member = new MemberDto("sin", "1", "신짱구", "jjong@sin@com", "1900", "01", "22");
-            assertTrue(memberService.joinUser(member)==1);
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void joinUserTest(){
+//        MemberDto member = null;
+//        try {
+////            member = new MemberDto("sin", "1", "신짱구", "jjong@sin@com", "1900", "01", "22");
+////            assertTrue(memberService.joinUser(member)==1);
+//
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 }

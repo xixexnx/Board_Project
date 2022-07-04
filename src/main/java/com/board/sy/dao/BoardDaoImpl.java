@@ -2,7 +2,6 @@ package com.board.sy.dao;
 
 import com.board.sy.domain.BoardDto;
 import com.board.sy.domain.PostDto;
-import jdk.jfr.Registered;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
