@@ -14,15 +14,12 @@ public class PostDto {
     private Date up_date;
 
     public PostDto(){}
-    public PostDto(String pno, String bno, String title, String content, String writer, int view_cnt, int comment_cnt, Date up_date) {
+    public PostDto(String pno, String bno, String title, String content, String writer) {
         this.pno = pno;
         this.bno = bno;
         this.title = title;
         this.content = content;
         this.writer = writer;
-        this.view_cnt = view_cnt;
-        this.comment_cnt = comment_cnt;
-        this.up_date = up_date;
     }
 
     public String getPno() {

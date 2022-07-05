@@ -14,6 +14,7 @@ public interface PostDao {
     String makePno() throws Exception;
     int modifyPost(PostDto dto) throws Exception;
     int deletePost(String pno) throws Exception;
-    int searchResultCnt(SearchCondition sc)throws Exception;
-    List<PostDto> searchSelectPage()throws Exception;
+    int increaseViewCnt(String pno)throws Exception;
+    int deleteAll() throws Exception;
+    int count() throws Exception;
 }

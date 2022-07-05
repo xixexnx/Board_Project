@@ -44,12 +44,17 @@ public class PostDaoImpl implements PostDao{
     }
 
     @Override
-    public int searchResultCnt(SearchCondition sc)throws Exception{
-        return session.selectOne(namespace+"searchResultcnt", sc);
-    }
-    @Override
-    public List<PostDto> searchSelectPage()throws Exception{
-        return session.selectList(namespace+"searchSelectPage");
+    public int increaseViewCnt(String pno)throws Exception{
+        return session.update(namespace+"increaseViewCnt", pno);
     }
 
+    @Override
+    public int deleteAll() throws Exception{
+        return session.delete(namespace+"deleteAll");
+    }
+
+    @Override
+    public int count() throws Exception{
+        return session.selectOne(namespace+"count");
+    }
 }

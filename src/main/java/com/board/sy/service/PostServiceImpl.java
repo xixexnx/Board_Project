@@ -12,7 +12,9 @@ public class PostServiceImpl implements PostService{
     PostDao postDao;
     @Override
     public PostDto getPost(String pno) throws Exception{
-        return postDao.getPost(pno);
+        postDao.increaseViewCnt(pno);
+        PostDto postDto = postDao.getPost(pno);
+        return postDto;
     }
     @Override
     public BoardDto getBoard(String pno) throws Exception{

@@ -1,6 +1,8 @@
 package com.board.sy.dao;
 
 import com.board.sy.domain.BoardDto;
+import com.board.sy.domain.PostDto;
+import com.board.sy.domain.SearchCondition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import static org.junit.Assert.*;
 public class BoardDaoImplTest {
     @Autowired
     BoardDao boardDao;
+    @Autowired PostDao postDao;
 
     @Test
     public void deleteAll() throws Exception {
@@ -79,6 +82,22 @@ public class BoardDaoImplTest {
     }
 
     @Test
-    public void getPosts() throws Exception{
+    public void searchResultCnt() throws Exception{
+        SearchCondition sc = new SearchCondition("", 1, 10, "T","t");
+        assertTrue(boardDao.searchResultCnt(sc)==0);
+
+        PostDto postDto = new PostDto("P0002", "B0001", "test","aaa","hong");
+        postDao.writePost(postDto);
+
+        assertTrue(boardDao.searchResultCnt(sc)==1);
+    }
+
+    @Test
+    public void searchSelectPage() throws Exception{
+        SearchCondition sc = new SearchCondition("", 1, 10, "T","t");
+        List<PostDto> list = boardDao.searchSelectPage(sc);
+
+        assertTrue(list.size()==1);
+        assertTrue(list.get(0).getPno().equals("P0002"));
     }
 }

@@ -23,14 +23,14 @@
         }
         .title{
             font-size: 24px;
-            padding-top: 20px;
+            padding-top: 10px;
             width: 100%;
             height: 60px;
         }
         .content{
             padding: 10px 5px 5px 3px;
             width: 100%;
-            height: 400px;
+            height: 450px;
             /*border: 1px solid #323232;*/
         }
         .container {
@@ -96,10 +96,229 @@
             font-size: 16px; /* Set a font size */
             cursor: pointer; /* Mouse pointer on hover */
             border-radius: 5px;
+            margin-bottom: 5px;
+
         }
 
         .btn:hover {
             text-decoration: underline;
+        }
+
+
+    /*  댓글 style  */
+        #commentList{
+            clear: both;
+        }
+        #commentList > ul {
+            background-color: #f9f9fa;
+            border:  1px solid rgb(235,236,239);
+            border-bottom : 0;
+            padding-bottom: 15px;
+        }
+
+        #commentList > ul > li {
+            background-color: #f9f9fa;
+            list-style-type: none;
+            padding : 18px 18px 0 18px;
+        }
+
+        #commentList {
+            width : 50%;
+            margin : auto;
+        }
+
+        .comment-content {
+            overflow-wrap: break-word;
+        }
+
+        .comment-bottom {
+            width: 300px;
+            font-size:9pt;
+            color : rgb(97,97,97);
+            padding: 8px 0 8px 0;
+        }
+
+        .comment-bottom > a {
+            color : rgb(97,97,97);
+            text-decoration: none;
+            margin : 0 6px 0 0;
+        }
+
+        .comment-area {
+            padding : 0 0 0 46px;
+            width: 600px;
+            float:left;
+            color:black;
+        }
+
+        .commenter {
+            font-size:12pt;
+            font-weight:bold;
+            color: black;
+        }
+
+        .commenter-writebox {
+            padding : 15px 20px 20px 20px;
+            width: 550px;
+        }
+
+        .comment-img {
+            font-size:36px;
+            position: absolute;
+        }
+
+        .comment-item {
+            position:relative;
+        }
+
+        .up_date {
+            margin : 0 8px 0 0;
+        }
+
+        #comment-writebox {
+            background-color: white;
+            border : 1px solid #e5e5e5;
+            border-radius: 5px;
+        }
+
+        .comment-writebox-content > textarea {
+            display: block;
+            width: 100%;
+            min-height: 17px;
+            padding: 0 20px;
+            border: 0;
+            outline: 0;
+            font-size: 13px;
+            resize: none;
+            box-sizing: border-box;
+            background: transparent;
+            overflow-wrap: break-word;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        #comment-writebox-bottom {
+            padding : 0px 10px 20px 10px;
+            min-height : 45px;
+        }
+
+        .comment-btn {
+            font-size:10pt;
+            color : black;
+            background-color: #eff0f2;
+            text-decoration: none;
+            padding : 9px 10px 9px 10px;
+            border-radius: 5px;
+            float : right;
+        }
+
+        #btn-write-comment, #btn-write-reply {
+            margin-bottom: 20px;
+            color : #009f47;
+            background-color: #e0f8eb;
+        }
+
+        #btn-cancel-reply {
+            background-color: #eff0f2;
+            margin-right : 10px;
+        }
+
+        #btn-write-modify {
+            color : #009f47;
+            background-color: #e0f8eb;
+        }
+
+        #btn-cancel-modify {
+            margin-right : 10px;
+        }
+
+        #reply-writebox {
+            display : none;
+            background-color: white;
+            border : 1px solid #e5e5e5;
+            border-radius: 5px;
+            margin : 10px;
+        }
+
+        #reply-writebox-bottom {
+            padding : 3px 10px 10px 10px;
+            min-height : 35px;
+        }
+
+        #modify-writebox {
+            background-color: white;
+            border : 1px solid #e5e5e5;
+            border-radius: 5px;
+            margin : 10px;
+        }
+
+        #modify-writebox-bottom {
+            padding : 3px 10px 10px 10px;
+            min-height : 35px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .paging {
+            color: black;
+            width: 100%;
+            text-align: center;
+        }
+
+        .page {
+            color: black;
+            text-decoration: none;
+            padding: 6px;
+            margin-right: 10px;
+        }
+
+        .paging-active {
+            background-color: rgb(216, 216, 216);
+            border-radius: 5px;
+            color: rgb(24, 24, 24);
+        }
+
+        .paging-container {
+            width:100%;
+            height: 70px;
+            margin-top: 50px;
+            margin : auto;
         }
     </style>
 </head>
@@ -120,6 +339,7 @@
     if(msg=="MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.");
 </script>
 <div class="container">
+    <div>
     <div class="writing-header">
         <c:if test="${mode eq 'new'}">
             <h2 style="margin-top: 15px">글쓰기</h2>
@@ -160,7 +380,41 @@
         </c:if>
         <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
     </form>
-</div>
+    </div>
+    </div>
+    <div id="commentList">
+        <div id="comment-writebox">
+            <div class="commenter commenter-writebox">${id}</div>
+            <div class="comment-writebox-content">
+                <textarea name="" id="" cols="30" rows="3" placeholder="댓글을 남겨보세요"></textarea>
+            </div>
+            <div id="comment-writebox-bottom">
+                <div class="register-box">
+                    <a href="#" class="comment-btn" id="btn-write-comment">등록</a>
+                </div>
+            </div>
+        </div>
+
+        <ul style="height: 100px;">
+            <li class="comment-item" data-cno="1" data-bno="1070">
+                <span class="comment-img">
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                </span>
+                <div class="comment-area">
+                    <div class="commenter">asdf</div>
+                    <div class="comment-content">sd
+                    </div>
+                    <div class="comment-bottom" style="float:left;">
+                        <span class="up_date">2022.01.01 23:59:59</span>
+                        <a href="#" class="btn-write"  data-cno="1" data-bno="1070" data-pcno="">답글쓰기</a>
+                        <a href="#" class="btn-modify" data-cno="1" data-bno="1070" data-pcno="">수정</a>
+                        <a href="#" class="btn-delete" data-cno="1" data-bno="1070" data-pcno="">삭제</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+<footer style="height: 70px;"></footer>
 <script>
     $(document).ready(function(){
         let formCheck = function() {

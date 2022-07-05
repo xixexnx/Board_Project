@@ -1,5 +1,6 @@
 package com.board.sy.domain;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import static java.lang.Math.max;
@@ -7,7 +8,7 @@ import static java.lang.Math.min;
 import static java.util.Objects.requireNonNullElse;
 
 public class SearchCondition {
-    private String bno;
+    private String bno = "";
     private Integer page = 1;
     private Integer pageSize = DEFAULT_PAGE_SIZE;
     private String option = "";

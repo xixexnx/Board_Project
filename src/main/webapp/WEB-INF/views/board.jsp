@@ -23,6 +23,9 @@
       padding: 0;
       font-family: "Noto Sans KR", sans-serif;
     }
+    footer {
+      height: 50px;
+    }
     a {
       text-decoration: none;
       color: black;
@@ -119,7 +122,7 @@
     .title   { width:50%;  }
     td.title   { text-align: left;  }
     td.writer  { text-align: center;  }
-    td.viewcnt { text-align: right; }
+    td.viewcnt { text-align: center; }
     td.title:hover {
       text-decoration: underline;
     }
@@ -287,7 +290,6 @@
     </div>
   </div>
 </div>
-
 <script>
   let goLists = function(bno) {
     $.ajax({
