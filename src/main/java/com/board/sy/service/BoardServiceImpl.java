@@ -3,6 +3,7 @@ package com.board.sy.service;
 import com.board.sy.dao.BoardDao;
 import com.board.sy.domain.BoardDto;
 import com.board.sy.domain.PostDto;
+import com.board.sy.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,14 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public List<PostDto> getPosts(String bno) throws Exception{
         return boardDao.getPosts(bno);
+    }
+
+    @Override
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
+        return boardDao.searchResultCnt(sc);
+    }
+    @Override
+    public List<PostDto> getSearchResultPage(SearchCondition sc) throws Exception {
+        return boardDao.searchSelectPage(sc);
     }
 }

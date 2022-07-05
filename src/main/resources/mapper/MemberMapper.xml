@@ -16,4 +16,9 @@
     <delete id="deleteAll">
         DELETE FROM member
     </delete>
+
+    <select id="count" resultType="int">
+        SELECT count(*)
+        FROM member
+    </select>
 </mapper>

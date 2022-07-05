@@ -2,6 +2,7 @@ package com.board.sy.controller;
 
 import com.board.sy.domain.BoardDto;
 import com.board.sy.domain.PostDto;
+import com.board.sy.domain.SearchCondition;
 import com.board.sy.service.BoardService;
 import com.board.sy.service.PostService;
 import org.apache.ibatis.annotations.Delete;
@@ -27,18 +28,17 @@ PostService postService;
 BoardService boardService;
 
     @GetMapping("/board/post/{pno}")
-    public String read(@PathVariable("pno") String pno, RedirectAttributes rattr, Model m){
+    public String read(@PathVariable("pno") String pno, SearchCondition sc, RedirectAttributes rattr, Model m){
         try {
             PostDto postDto = postService.getPost(pno);
-            BoardDto boardDto = postService.getBoardName(pno);
+            BoardDto boardDto = postService.getBoard(pno);
             m.addAttribute(postDto);
             m.addAttribute(boardDto);
             m.addAttribute("mode", "read");
-
         } catch (Exception e) {
             e.printStackTrace();
             rattr.addFlashAttribute("msg", "READ_ERR");
-            return "redirect:/post";
+            return "redirect:/post"+sc.getQueryString();
         }
         return "post";
     }
@@ -59,10 +59,17 @@ BoardService boardService;
     }
 
     @GetMapping("/board/post")
+    public String getPosts(String bno, Model m) throws Exception {
+        List<PostDto> boardList = boardService.getPosts(bno);
+        m.addAttribute("boardList", boardList);
+        return "board";
+    }
+
+    @GetMapping("/board/post/create")
     public String getPost(Model m){
         try{
-            List<BoardDto> list = boardService.getBoards();
-            m.addAttribute("Boardlist", list);
+            List<BoardDto> boardList = boardService.getBoards();
+            m.addAttribute("BoardList", boardList);
             m.addAttribute("mode","new");
         }catch (Exception e){
             e.printStackTrace();

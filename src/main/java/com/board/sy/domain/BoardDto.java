@@ -1,9 +1,11 @@
 package com.board.sy.domain;
 
+import java.util.Date;
+
 public class BoardDto {
     private String bno;
     private String title;
-    private String reg_date;
+    private Date reg_date;
 
     public BoardDto() {}
 
@@ -28,11 +30,11 @@ public class BoardDto {
         this.title = title;
     }
 
-    public String getReg_date() {
+    public Date getReg_date() {
         return reg_date;
     }
 
-    public void setReg_date(String reg_date) {
+    public void setReg_date(Date reg_date) {
         this.reg_date = reg_date;
     }
 }

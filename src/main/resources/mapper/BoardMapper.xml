@@ -17,4 +17,48 @@
         WHERE bno LIKE concat('%', #{bno})
         ORDER BY pno desc;
     </select>
+
+    <insert id="insertBoard">
+        INSERT INTO board(bno, title, reg_date) VALUES(#{bno}, #{title}, now())
+    </insert>
+
+    <select id="count" resultType="int">
+        SELECT count(*)
+        FROM board
+    </select>
+
+    <delete id="deleteAll">
+        DELETE FROM board
+    </delete>
+
+    <sql id="searchCondition">
+        <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND writer LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title   LIKE concat('%', #{keyword}, '%')
+                OR   content LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="PostDto">
+        SELECT bno, pno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM  post
+        WHERE bno LIKE concat('%', #{bno})
+        <include refid="searchCondition"/>
+        ORDER BY reg_date DESC, pno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM  post
+        WHERE bno LIKE concat('%', #{bno})
+        <include refid="searchCondition"/>
+    </select>
 </mapper>

@@ -10,8 +10,8 @@
         ORDER BY pno asc
     </select>
 
-    <select id="selectBoardName" resultType="BoardDto">
-        SELECT t1.title
+    <select id="selectBoard" resultType="BoardDto">
+        SELECT t1.title, t1.bno
         FROM board t1, post t2
         WHERE t1.bno = t2.bno
         AND pno = #{pno}
@@ -37,4 +37,5 @@
         DELETE FROM post
         WHERE pno = #{pno}
     </delete>
+
 </mapper>

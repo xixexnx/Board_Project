@@ -9,5 +9,6 @@
 		<typeAlias alias="MemberDto" type="com.board.sy.domain.MemberDto"/>
 		<typeAlias alias="BoardDto" type="com.board.sy.domain.BoardDto"/>
 		<typeAlias alias="PostDto" type="com.board.sy.domain.PostDto"/>
+		<typeAlias alias="SearchCondition" type="com.board.sy.domain.SearchCondition"/>
 	</typeAliases>
 </configuration>

@@ -16,9 +16,9 @@ public class MemberServiceImplTest {
     @Autowired MemberService memberService;
 
     @Test
-    public void getUserTest(String mid) {
+    public void getUserTest() {
         // mid = "hong", pwd="1", name="홍길동", email="hong@hong.com", birth="1998-01-13", reg_date="2022-06-30"
-        mid = "hong";
+        String mid = "hong";
         MemberDto member = null;
         try{
             member = memberService.getUser(mid);
@@ -31,19 +31,18 @@ public class MemberServiceImplTest {
         assertTrue(member.getPwd().equals("1"));
         assertTrue(member.getMname().equals("홍길동"));
         assertTrue(member.getEmail().equals("hong@hong.com"));
-//        assertTrue(member.getBirth().equals("2022-01-01"));
-        assertTrue(member.getReg_date().equals("2022-06-30"));
+        assertTrue(member.getReg_date().equals("2022-07-05"));
     }
 
-//    @Test
-//    public void joinUserTest(){
-//        MemberDto member = null;
-//        try {
-////            member = new MemberDto("sin", "1", "신짱구", "jjong@sin@com", "1900", "01", "22");
-////            assertTrue(memberService.joinUser(member)==1);
-//
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+    @Test
+    public void joinUserTest(){
+        MemberDto member = null;
+        try {
+            member = new MemberDto("hong", "1", "홍길동", "hong@hong.com", "2011", "06", "22");
+            assertTrue(memberService.joinUser(member)==1);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

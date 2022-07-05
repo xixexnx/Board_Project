@@ -140,7 +140,7 @@
         <input type="hidden" name="pno" value="${postDto.pno}">
         <c:if test="${mode eq 'new'}">
         <select id="boardSelect" name="bno">
-            <c:forEach var="list" items="${Boardlist}">
+            <c:forEach var="list" items="${BoardList}">
                 <option value="<c:out value='${list.bno}'/> "><c:out value="${list.title}"/> </option>
             </c:forEach>
         </select>
@@ -180,7 +180,7 @@
         }
 
         $("#writeNewBtn").on("click", function(){
-            location.href="<c:url value='/board/post'/>";
+            location.href="<c:url value='/board/post/create'/>";
         });
 
         $("#writeBtn").on("click", function(){
@@ -251,7 +251,7 @@
         });
 
         $("#listBtn").on("click", function(){
-            location.href="<c:url value='/board'/>";
+            location.href="<c:url value='/board${searchCondition.queryString}'/>";
         });
     });
 </script>

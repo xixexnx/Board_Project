@@ -26,5 +26,10 @@ public class MemberDaoImpl implements MemberDao {
     public int deleteAll() throws Exception{
         return session.delete(namespace+"deleteAll");
     }
+
+    @Override
+    public int count() throws Exception{
+        return session.selectOne(namespace+"count");
+    }
 }
 

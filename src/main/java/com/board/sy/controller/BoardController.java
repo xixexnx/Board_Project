@@ -1,13 +1,18 @@
 package com.board.sy.controller;
 
 import com.board.sy.domain.BoardDto;
+import com.board.sy.domain.PageHandler;
 import com.board.sy.domain.PostDto;
+import com.board.sy.domain.SearchCondition;
 import com.board.sy.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,14 +23,30 @@ public class BoardController {
     BoardService boardService;
 
     @GetMapping("/board")
-    public String getBoardList(String bno, Model m){
-        List<BoardDto> boardList = null;
-        List<PostDto> postList = null;
+    public String getBoardList(String bno, Model m, SearchCondition sc){
+//        List<BoardDto> boardList = null;
+//        List<PostDto> postList = null;
         try{
-            boardList = boardService.getBoards();
+            if(bno==null) bno="";
+            sc.setBno(bno);
+            int totalCnt = boardService.getSearchResultCnt(sc);
+
+            m.addAttribute("totalCnt", totalCnt);
+
+            PageHandler ph = new PageHandler(totalCnt, sc);
+            m.addAttribute("ph", ph);
+
+            List<PostDto> postList = boardService.getSearchResultPage(sc);
+            m.addAttribute("postList", postList);
+
+            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
+
+            List<BoardDto> boardList = boardService.getBoards();
             m.addAttribute("boardList", boardList);
-            postList = boardService.getPosts("");
-            m.addAttribute("postList",postList);
+
+            BoardDto boardDto = boardService.getBoard(bno);
+            m.addAttribute("board", boardDto);
         }catch(Exception e){
             e.printStackTrace();
         }

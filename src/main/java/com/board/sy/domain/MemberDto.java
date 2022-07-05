@@ -24,6 +24,15 @@ public class MemberDto {
         this.mauth = mauth;
         this.reg_date = reg_date;
     }
+    public MemberDto(String mid, String pwd, String mname, String email, String birth_yy, String birth_mm, String birth_dd) {
+        this.mid = mid;
+        this.pwd = pwd;
+        this.mname = mname;
+        this.email = email;
+        this.birth_yy = birth_yy;
+        this.birth_mm = birth_mm;
+        this.birth_dd = birth_dd;
+    }
 
     public String getMid() {
         return mid;

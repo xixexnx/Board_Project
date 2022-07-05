@@ -4,7 +4,7 @@
 <%@ page session="true"%>
 <c:set var="loginId" value="${sessionScope.id}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
 <c:set var="signLink" value="${loginId=='' ? '/register' : '/mypage'}"/>
 <c:set var="sign" value="${loginId=='' ? 'Sign in' : 'MyPage'}"/>
@@ -118,7 +118,7 @@
     .no      { width:150px;}
     .title   { width:50%;  }
     td.title   { text-align: left;  }
-    td.writer  { text-align: left;  }
+    td.writer  { text-align: center;  }
     td.viewcnt { text-align: right; }
     td.title:hover {
       text-decoration: underline;
@@ -184,11 +184,6 @@
       border-bottom: 1px solid #ccc;
     }
   </style>
-<script>
-  $(document).ready(function(){
-    goList("");
-  });
-</script>
 </head>
 
 <body>
@@ -211,7 +206,7 @@
   <div class="board_menu">
     <ul>
       <c:forEach var="boardDto" items="${boardList}">
-      <li><a onclick="goList('${boardDto.bno}')">${boardDto.title}</a></li>
+      <li><a href="<c:url value='/board?bno=${boardDto.bno}'/>">${boardDto.title}</a></li>
       </c:forEach>
     </ul>
   </div>
@@ -231,13 +226,21 @@
 
 <div style="text-align:center; clear: both">
   <div id="board-top">
-    <span id="board-name"><a>전체 게시판</a></span>
+    <span id="board-name">
+      <c:if test="${board!=null}">
+        <a>${board.title}</a>
+      </c:if>
+      <c:if test="${board==null}">
+        <a>전체 게시판</a>
+      </c:if>
+    </span>
+    <c:if test="${loginId!=null}">
     <div style="float:right">
-      <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/post"/>'"><i class="fa fa-pencil"></i> 글쓰기</button>
+      <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/post/create"/>'"><i class="fa fa-pencil"></i> 글쓰기</button>
     </div>
+    </c:if>
   </div>
   <div class="board-container">
-
     <table>
       <tr>
         <th class="no">번호</th>
@@ -246,32 +249,47 @@
         <th class="regdate">등록일</th>
         <th class="viewcnt">조회수</th>
       </tr>
-      <tbody id="board-table">
-
-      </tbody>
+      <c:forEach var="postDto" items="${postList}">
+        <tr>
+          <td class="no">${postDto.pno.substring(1)}</td>
+          <td class="title"><a href="<c:url value='/board/post/${postDto.pno}${ph.sc.queryString}'/>">${postDto.title}</a></td>
+          <td class="writer">${postDto.writer}</td>
+          <c:choose>
+            <c:when test="${postDto.reg_date.time >= startOfToday}">
+              <td class="regdate"><fmt:formatDate value="${postDto.reg_date}" pattern="HH:mm" type="time"/></td>
+            </c:when>
+            <c:otherwise>
+              <td class="regdate"><fmt:formatDate value="${postDto.reg_date}" pattern="yyyy-MM-dd" type="date"/></td>
+            </c:otherwise>
+          </c:choose>
+          <td class="viewcnt">${postDto.view_cnt}</td>
+        </tr>
+      </c:forEach>
     </table>
     <br>
     <div class="paging-container">
       <div class="paging" id="paging">
-<%--       --%>
-<%--        <c:if test="${totalCnt!=null && totalCnt!=0}">--%>
-<%--          <c:if test="${ph.showPrev}">--%>
-<%--            <a class="page" href="<c:url value="/board/list${ph.sc.getQueryString(ph.beginPage-1)}"/>">&lt;</a>--%>
-<%--          </c:if>--%>
-<%--          <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">--%>
-<%--            <a class="page ${i==ph.sc.page? "paging-active" : ""}" href="<c:url value="/board/list${ph.sc.getQueryString(i)}"/>">${i}</a>--%>
-<%--          </c:forEach>--%>
-<%--          <c:if test="${ph.showNext}">--%>
-<%--            <a class="page" href="<c:url value="/board/list${ph.sc.getQueryString(ph.endPage+1)}"/>">&gt;</a>--%>
-<%--          </c:if>--%>
-<%--        </c:if>--%>
+        <c:if test="${totalCnt==null || totalCnt==0}">
+          <div> 게시물이 없습니다. </div>
+        </c:if>
+        <c:if test="${totalCnt!=null && totalCnt!=0}">
+          <c:if test="${ph.showPrev}">
+            <a class="page" href="<c:url value="/board${ph.sc.getQueryString(ph.beginPage-1)}"/>">&lt</a>
+          </c:if>
+          <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+            <a class="page ${i==ph.sc.page? "paging-active" : ""}" href='<c:url value="/board${ph.sc.getQueryString(i)}"/>'>${i}</a>
+          </c:forEach>
+          <c:if test="${ph.showNext}">
+            <a class="page" href="<c:url value="/board${ph.sc.getQueryString(ph.endPage+1)}"/>">&gt</a>
+          </c:if>
+        </c:if>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  let goList = function(bno) {
+  let goLists = function(bno) {
     $.ajax({
       type: 'GET',                // 요청 메서드
       url: '/sy/board/list',         // 요청 URI
@@ -292,7 +310,7 @@
             let reg_day = new Date(data.list[i].up_date);
             str += '<tr>';
             str += '<td class="no">' + data.list[i].pno.slice(1, 5) + '</td>';
-            str += '<td class="title"><a href="<c:url value='/board/post/'/>' + data.list[i].pno + '">' + data.list[i].title + '</a></td>';
+            str += '<td class="title"><a href="<c:url value='/board/post/'/>' + data.list[i].pno + '${ph.sc.queryString}">' + data.list[i].title + '</a></td>';
             str += '<td class="writer" style="text-align: center">' + data.list[i].writer + '</td>';
             if (reg_day >= now.getDate()) {
               str += '<td class="regdate">' + reg_day.getHours() + '시 ' + reg_day.getMinutes() + '분' + '</td>';

@@ -1,5 +1,7 @@
 package com.board.sy.domain;
 
+import java.util.Date;
+
 public class PostDto {
     private String pno;
     private String bno;
@@ -8,11 +10,11 @@ public class PostDto {
     private String writer;
     private int view_cnt;
     private int comment_cnt;
-    private String reg_date;
-    private String up_date;
+    private Date reg_date;
+    private Date up_date;
 
     public PostDto(){}
-    public PostDto(String pno, String bno, String title, String content, String writer, int view_cnt, int comment_cnt, String up_date) {
+    public PostDto(String pno, String bno, String title, String content, String writer, int view_cnt, int comment_cnt, Date up_date) {
         this.pno = pno;
         this.bno = bno;
         this.title = title;
@@ -79,19 +81,19 @@ public class PostDto {
         this.comment_cnt = comment_cnt;
     }
 
-    public String getReg_date() {
+    public Date getReg_date() {
         return reg_date;
     }
 
-    public void setReg_date(String reg_date) {
+    public void setReg_date(Date reg_date) {
         this.reg_date = reg_date;
     }
 
-    public String getUp_date() {
+    public Date getUp_date() {
         return up_date;
     }
 
-    public void setUp_date(String up_date) {
+    public void setUp_date(Date up_date) {
         this.up_date = up_date;
     }
 }

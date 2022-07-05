@@ -15,8 +15,8 @@ public class PostServiceImpl implements PostService{
         return postDao.getPost(pno);
     }
     @Override
-    public BoardDto getBoardName(String pno) throws Exception{
-        return postDao.getBoardName(pno);
+    public BoardDto getBoard(String pno) throws Exception{
+        return postDao.getBoard(pno);
     }
 
     @Override
