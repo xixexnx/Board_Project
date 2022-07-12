@@ -86,7 +86,7 @@ public class SearchCondition {
     }
 
     public Integer getOffset() {
-        return (page-1)*pageSize;
+        return (page==0) ? 0 : (page-1)*pageSize;
     }
 
     @Override

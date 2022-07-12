@@ -4,8 +4,8 @@
 <c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
-<c:set var="signLink" value="${loginId=='' ? '/register' : '/mypage'}"/>
-<c:set var="sign" value="${loginId=='' ? 'Sign in' : 'MyPage'}"/>
+<c:set var="signLink" value="${loginId=='' ? '/register' : '#'}"/>
+<c:set var="sign" value="${loginId=='' ? 'Sign in' : loginId}"/>
 <!DOCTYPE html>
 <html>
 <head>

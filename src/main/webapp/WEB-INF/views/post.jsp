@@ -4,8 +4,8 @@
 <c:set var="loginId" value="${sessionScope.id}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
-<c:set var="signLink" value="${loginId=='' ? '/register' : '/mypage'}"/>
-<c:set var="sign" value="${loginId=='' ? 'Sign in' : 'MyPage'}"/>
+<c:set var="signLink" value="${loginId=='' ? '/register' : '#'}"/>
+<c:set var="sign" value="${loginId=='' ? 'Sign in' : loginId}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -466,7 +466,7 @@
                     data: JSON.stringify(dto),
                     success: function (data) {
                         alert("성공적으로 수정하였습니다.");
-                        location.href="<c:url value='/board/post/${postDto.pno}'/>";
+                        location.href="<c:url value='/board/post/${postDto.pno}${searchCondition.queryString}'/>";
                     },
                     error: function () {
                         alert("error")
@@ -486,7 +486,7 @@
                 dataType: 'text',          // 전송받을 데이터의 타입
                 success: function (data) {
                    alert("성공적으로 삭제하였습니다.");
-                   location.href="<c:url value='/board'/>";
+                   location.href="<c:url value='/board${searchCondition.queryString}'/>";
                 },
                 error: function () {
                     alert("error")

@@ -5,8 +5,8 @@
 <c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
-<c:set var="signLink" value="${loginId=='' ? '/register' : '/mypage'}"/>
-<c:set var="sign" value="${loginId=='' ? 'Sign in' : 'MyPage'}"/>
+<c:set var="signLink" value="${loginId=='' ? '/register' : '#'}"/>
+<c:set var="sign" value="${loginId=='' ? 'Sign in' : loginId}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,8 +86,8 @@
   <button>로그인</button>
   <div>
     <label><input type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}> 아이디 기억</label> |
-    <a href="">비밀번호 찾기</a> |
-    <a href="">회원가입</a>
+<%--    <a href="">비밀번호 찾기</a> |--%>
+    <a href="<c:url value='/register'/>">회원가입</a>
   </div>
 
   <script>

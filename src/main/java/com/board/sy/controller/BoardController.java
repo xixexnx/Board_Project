@@ -24,8 +24,6 @@ public class BoardController {
 
     @GetMapping("/board")
     public String getBoardList(String bno, Model m, SearchCondition sc){
-//        List<BoardDto> boardList = null;
-//        List<PostDto> postList = null;
         try{
             if(bno==null) bno="";
             sc.setBno(bno);
@@ -42,11 +40,11 @@ public class BoardController {
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
 
-            List<BoardDto> boardList = boardService.getBoards();
-            m.addAttribute("boardList", boardList);
-
             BoardDto boardDto = boardService.getBoard(bno);
             m.addAttribute("board", boardDto);
+
+            List<BoardDto> boardList = boardService.getBoards();
+            m.addAttribute("boardList", boardList);
         }catch(Exception e){
             e.printStackTrace();
         }

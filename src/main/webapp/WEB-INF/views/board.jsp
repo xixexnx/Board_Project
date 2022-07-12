@@ -4,10 +4,9 @@
 <%@ page session="true"%>
 <c:set var="loginId" value="${sessionScope.id}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
-<c:set var="signLink" value="${loginId=='' ? '/register' : '/mypage'}"/>
-<c:set var="sign" value="${loginId=='' ? 'Sign in' : 'MyPage'}"/>
+<c:set var="signLink" value="${loginId=='' ? '/register' : '#'}"/>
+<c:set var="sign" value="${loginId=='' ? 'Sign in' : loginId}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -233,7 +232,7 @@
 <div style="text-align:center; clear: both">
   <div id="board-top">
     <span id="board-name">
-      <c:if test="${board!=null}">
+      <c:if test="${board.bno !=null}">
         <a>${board.title}</a>
       </c:if>
       <c:if test="${board.bno==null}">
