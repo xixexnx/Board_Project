@@ -50,10 +50,10 @@ IntelliJ, MySql WorkBench 8.0 CE
 
 ## 기술 로그
 
-# Test
+#### Test
 개발과 동시에 기본적인 오류를 잡기 위해 JUnit4를 이용해 Dao와 Service 테스트를 진행하였습니다.
 
-# ajax
+#### ajax
 Restful한 설계를 위해 게시글 수정, 삭제와 댓글 및 대댓글 조회, 쓰기, 수정, 삭제를 ajax를 사용하여 처리하였습니다.
 
 <br>
