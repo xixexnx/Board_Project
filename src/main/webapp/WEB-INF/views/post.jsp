@@ -106,6 +106,7 @@
 
 
     /*  댓글 style  */
+
         #commentList{
             clear: both;
         }
@@ -121,18 +122,21 @@
             list-style-type: none;
             padding : 18px 18px 0 18px;
         }
-
-        #commentList {
+        #commentarea{
             width : 50%;
             margin : auto;
         }
 
         .comment-content {
             overflow-wrap: break-word;
+            width: 100%;
+            border: none;
+            margin: 0px;
+            height: 45px;
         }
 
         .comment-bottom {
-            width: 300px;
+            width: 100%;
             font-size:9pt;
             color : rgb(97,97,97);
             padding: 8px 0 8px 0;
@@ -146,9 +150,9 @@
 
         .comment-area {
             padding : 0 0 0 46px;
-            width: 600px;
-            float:left;
             color:black;
+            margin: 0px 0px 0px 0px;
+            border-bottom: 1px solid #ccc;
         }
 
         .commenter {
@@ -202,7 +206,7 @@
             min-height : 45px;
         }
 
-        .comment-btn {
+        .comment-btn, .new-comment-btn {
             font-size:10pt;
             color : black;
             background-color: #eff0f2;
@@ -382,37 +386,22 @@
     </form>
     </div>
     </div>
-    <div id="commentList">
+
+    <c:if test="${mode ne 'new'}">
+    <div id="commentarea">
         <div id="comment-writebox">
             <div class="commenter commenter-writebox">${id}</div>
             <div class="comment-writebox-content">
-                <textarea name="" id="" cols="30" rows="3" placeholder="댓글을 남겨보세요"></textarea>
+                <textarea name="comment" id="" cols="30" rows="3" placeholder="댓글을 남겨보세요"></textarea>
             </div>
             <div id="comment-writebox-bottom">
                 <div class="register-box">
-                    <a href="#" class="comment-btn" id="btn-write-comment">등록</a>
+                    <a href="" class="comment-btn" id="btn-write-comment">등록</a>
                 </div>
             </div>
         </div>
-
-        <ul style="height: 100px;">
-            <li class="comment-item" data-cno="1" data-bno="1070">
-                <span class="comment-img">
-                    <i class="fa fa-user-circle" aria-hidden="true"></i>
-                </span>
-                <div class="comment-area">
-                    <div class="commenter">asdf</div>
-                    <div class="comment-content">sd
-                    </div>
-                    <div class="comment-bottom" style="float:left;">
-                        <span class="up_date">2022.01.01 23:59:59</span>
-                        <a href="#" class="btn-write"  data-cno="1" data-bno="1070" data-pcno="">답글쓰기</a>
-                        <a href="#" class="btn-modify" data-cno="1" data-bno="1070" data-pcno="">수정</a>
-                        <a href="#" class="btn-delete" data-cno="1" data-bno="1070" data-pcno="">삭제</a>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        <div id="commentList"></div>
+    </c:if>
     </div>
 <footer style="height: 70px;"></footer>
 <script>
@@ -457,6 +446,7 @@
                 $("input[class=title]").attr('readonly', false);
                 $("textarea").attr('readonly', false);
                 $("#modifyBtn").html("<i class='fa fa-pencil'></i> 등록");
+                $("#commentList").html("");
                 return;
             }
 
@@ -507,7 +497,189 @@
         $("#listBtn").on("click", function(){
             location.href="<c:url value='/board${searchCondition.queryString}'/>";
         });
+
+        showComment();
+
+        let commentCheck = function(obj){
+            if(obj.val().trim()==""){
+                alert("댓글을 입력하세요.");
+                obj.focus();
+                return false;
+            }
+            return true;
+        }
+
+        $("#btn-write-comment").on("click",function(){
+            let comment = $("textarea[name=comment]").val();
+            let pno = $("input[name=pno]").val();
+
+            let dto = {
+                comment: comment,
+                pno: pno
+            }
+
+            $.ajax({
+                method: 'POST',                // 요청 메서드
+                url: '/sy/board/post/comment',         // 요청 URI
+                contentType: "application/json",
+                dataType: 'text',
+                data: JSON.stringify(dto),
+                success: function (data) {
+                    alert("댓글을 성공적으로 등록하였습니다.");
+                    showComment();
+                },
+                error: function () {
+                    alert("error")
+                }
+            });
+        });
+
+        $("#commentarea").on("click", ".btn-modify", function(){
+            let content_area = $(".comment-content", $(this).parent().parent());
+            if(content_area.attr("readonly")) {
+                let btn_str = "<a class='btn-modify' style='float:right;' >등록</a>";
+                $(this).parent().append(btn_str);
+                content_area.attr("readonly", false);
+                content_area.attr("disabled", false);
+                content_area.attr("style", "background-color:white; border:1px solid #ccc;");
+            }
+            else {
+                if (commentCheck(content_area)) {
+                    let cno = $(".btn-modify", $(this).parent()).attr("data-cno");
+                    let comment = content_area.val();
+
+                    let dto = {
+                        cno: cno,
+                        comment: comment
+                    }
+                    $.ajax({
+                        method: 'PATCH',                // 요청 메서드
+                        url: '/sy/board/post/comment/' + cno,    // 요청 URI
+                        contentType: "application/json",
+                        dataType: 'text',
+                        data: JSON.stringify(dto),
+                        success: function (data) {
+                            alert("댓글을 성공적으로 수정하였습니다.");
+                            showComment();
+                        },
+                        error: function () {
+                            alert("error")
+                        }
+                    });
+                }
+            }
+        });
+
+        $("#commentarea").on("click", ".btn-delete", function(){
+            let cno = $(this).attr("data-cno");
+            alert(cno);
+           $.ajax({
+               method: 'DELETE',
+               url: '/sy/board/post/comment/' + cno,
+               dataType: 'text',
+               success: function (data) {
+                   alert("댓글을 성공적으로 삭제하였습니다.");
+                   showComment();
+               },
+               error: function () {
+                   alert("error");
+               }
+            });
+        });
+
+        $("#commentarea").on("click", ".btn-write", function(){
+            if($("input[name='new_comment']", $(this).parent()).val()=='N'){
+                $("input[name='new_comment']", $(this).parent()).val('Y');
+                let re_comment = '';
+                re_comment += "<textarea style='width: 90%' placeholder='댓글을 입력하세요.'></textarea>";
+                re_comment += "<a class='new-comment-btn' style='float:right; margin-top:15px; font-size:13px;'>등록</a>";
+                $(".new_comment-area", $(this).parent().parent()).html(re_comment);
+            }else {
+                $("input[name='new_comment']", $(this).parent()).val('N');
+                $(".new_comment-area", $(this).parent().parent()).html("");
+            }
+        });
+
+        $("#commentarea").on("click", ".new-comment-btn", function(){
+            alert($("textarea", $(this).parent()).val());
+            alert($(this).parent().parent().parent().attr("data-cno"));
+
+            let comment = $("textarea", $(this).parent()).val()
+            let pcno = $(this).parent().parent().parent().attr("data-cno");
+            let pno = $(this).parent().parent().parent().attr("data-pno");
+
+            let dto = {
+                comment: comment,
+                pcno: pcno,
+                pno: pno
+            }
+
+            $.ajax({
+                method: 'POST',                // 요청 메서드
+                url: '/sy/board/post/comment',         // 요청 URI
+                contentType: "application/json",
+                dataType: 'text',
+                data: JSON.stringify(dto),
+                success: function (data) {
+                    alert("댓글을 성공적으로 등록하였습니다.");
+                    showComment();
+                },
+                error: function () {
+                    alert("error")
+                }
+            });
+        });
     });
+
+    let showComment = function(){
+        $.ajax({
+            method:'GET',
+            url: '/sy/board/post/comment/${postDto.pno}',         // 요청 URI
+            success: function (data) {
+                $("#commentList").html(toHtml(data));
+            }
+        })
+    }
+
+    let toHtml = function(data){
+        let str = '<ul>';
+        if(data.length==0){
+            str += '<div style="color:dimgray; margin: 40px 0px 0px 20px;">등록된 댓글이 없습니다.</div>';
+        }
+        else {
+            data.forEach(function (comment) {
+                if(comment.cno != comment.pcno){
+                str += '       <li class="comment-item" style="margin-left:40px;" data-cno="' + comment.cno + '" data-pno="' + comment.pno + '">';
+                }
+                else {
+                str += '       <li class="comment-item" data-cno="' + comment.cno + '" data-pno="' + comment.pno + '">';
+                }
+                str += '        <span class="comment-img">';
+                str += '            <i class="fa fa-user-circle" aria-hidden="true"></i>';
+                str += '        </span>';
+                str += '            <div class="comment-area">';
+                str += '                <div class="commenter">' + comment.commenter + '</div>';
+                str += '                <textarea class="comment-content" readonly disabled>' + comment.comment;
+                str += '                </textarea>';
+                str += '                <div class="comment-bottom">';
+                str += '                    <span class="up_date">' + comment.up_date + '</span>';
+                if(comment.cno == comment.pcno) {
+                str += '                    <a class="btn-write"  data-cno="' + comment.cno + '" data-pno="' + comment.pno + '" data-pcno="' + comment.pcno + '">답글쓰기</a>';
+                str += '                    <input type="hidden" name="new_comment" value="N"/>';
+                }
+                if('${loginId}'===comment.commenter){
+                str += '                    <a class="btn-modify" data-cno="' + comment.cno + '" data-pno="' + comment.pno + '" data-pcno="' + comment.pcno + '">수정</a>';
+                str += '                    <a href="#" class="btn-delete" data-cno="' + comment.cno + '" data-pno="' + comment.pno + '" data-pcno="' + comment.pcno + '">삭제</a>';
+                }
+                str += '                </div>';
+                str += '                <div class="new_comment-area"></div>';
+                str += '            </div>';
+                str += '        </li>';
+            })
+        }
+        str+="</ul>";
+        return str;
+    }
 </script>
 </body>
 </html>

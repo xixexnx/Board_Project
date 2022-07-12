@@ -165,18 +165,21 @@
       background-color: white;
       float: left;
       margin-bottom: 30px;
-      margin-left:20px;
+      margin-left:60px;
     }
     .board_menu ul{
-      background-color: white;
-      height: 50px;
+      list-style-type: none;
+      height: 48px;
+      width:100%;
+      display: flex;
     }
     .board_menu >ul >li{
-      width:150px;
+      color: #ccc;
+      height : 100%;
+      width:120px;
+      display:flex;
+      align-items: center
     }
-    .board_menu >ul >li> a:hover{
-       border-bottom: none;
-     }
     .board_menu >ul >li >a{
       color: #172038;
       font-size: 18px;
@@ -233,7 +236,7 @@
       <c:if test="${board!=null}">
         <a>${board.title}</a>
       </c:if>
-      <c:if test="${board==null}">
+      <c:if test="${board.bno==null}">
         <a>전체 게시판</a>
       </c:if>
     </span>

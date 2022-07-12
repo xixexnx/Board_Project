@@ -8,7 +8,7 @@
     </select>
 
     <select id="select" resultType="BoardDto">
-        SELECT title FROM board
+        SELECT bno, title FROM board
         WHERE bno = #{bno}
     </select>
 

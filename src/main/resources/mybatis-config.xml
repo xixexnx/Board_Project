@@ -10,5 +10,6 @@
 		<typeAlias alias="BoardDto" type="com.board.sy.domain.BoardDto"/>
 		<typeAlias alias="PostDto" type="com.board.sy.domain.PostDto"/>
 		<typeAlias alias="SearchCondition" type="com.board.sy.domain.SearchCondition"/>
+		<typeAlias alias="CommentDto" type="com.board.sy.domain.CommentDto"/>
 	</typeAliases>
 </configuration>
