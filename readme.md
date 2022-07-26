@@ -3,7 +3,8 @@
 목적 : Spring MVC 패턴과 MyBatis를 이용한 사용자들이 소통할 수 있는 게시판 생성
 
 
-https://user-images.githubusercontent.com/64449625/178439018-928716d1-87d0-464c-b1b4-22b50d779ccb.mp4
+
+https://user-images.githubusercontent.com/64449625/181013631-b3789843-e844-4e16-b946-42aaa92f4c01.mp4
 
 
 
